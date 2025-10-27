@@ -25,7 +25,7 @@ A module manage score of User
   - PUT /score/{user_id}/adjust: Admin endpoint to adjust user score
   - GET /scoreboard?top=N: Retrieve top N users by score
   - GET /score/history/{user_id}: Retrieve score history for a user
-  - PUT /score/{user_id}/action: Endpoint to modify score based on user actions
+  - PUT /score/{user_id}/{action_id}: Endpoint to modify score based on user actions
 - Real-time Updates:
   - WebSocket endpoint for live score updates
 - Authentication & Authorization:
@@ -37,17 +37,4 @@ A module manage score of User
 
 ##### Flow Diagram
 
-```mermaid
-flowchart TD
-    A[User Action] --> B{Is User Authenticated?}
-    B -- Yes --> C{Is User Admin?}
-    B -- No --> D[Return Unauthorized Error]
-    C -- Yes --> E[Admin Adjusts Score]
-    C -- No --> F[User Performs Action]
-    E --> G[Update Score in Database]
-    F --> H[Calculate Score Change]
-    H --> G
-    G --> I[Log Score Change in History]
-    I --> J[Notify User via WebSocket]
-    J --> K[Return Updated Score]
-```
+![Score Module Flow Diagram](./prob6.drawio.png)
