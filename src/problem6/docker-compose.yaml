@@ -1,0 +1,29 @@
+services:
+  backend:
+    image: my-backend-image:latest
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydatabase
+    depends_on:
+      - mongo
+    networks:
+        - application-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+        - application-network
+
+
+networks:
+  application-network:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
